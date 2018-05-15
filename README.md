@@ -79,3 +79,27 @@
 	
 	11、小程序的绑定主要是在js里实现，页面结构对数据的引用，与js对数据的引用，两种方式还是不同的
 		wxml:{{articleLists[0]}}	.js: {{this.data.articleLists}}
+
+	12、js里undefined与'undefined'的区别？
+			一个没定义的变量： typeof lofayo === 'undefined'
+			json没定义的属性： json.lofayo === undefined
+												typeof json.lofayo === 'undefined'
+												
+	13、在小程序从一个页面返回了，就触发了页面生命周期里的unload事件，也就是页面卸载了
+			（这种思想完全不同于jquery，比如每个页面都有一个音乐可以播放，却共用一个公共播放器，播放页面返回依然可以播放，因为播放器是全局的，而那个播放页面其实已卸载了）
+		
+		还有个问题：全局播放器播放时，进入子页面依然在播放，可以去到看到播放状态，却不能正确的去到播放状态的值
+			如：在播放状态看这两个值
+				console.log(app.globalData.innerAudioContext)
+				console.log(app.globalData.innerAudioContext.paused)
+	
+	14、设置本地数据库存储要注意的问题：每个函数都只实现一个小功能，再将函数拼起来，才构成整个应用
+		1、初次进入页面：
+						没设置过收藏，就初始化本地数据库存储对象（对应生命周期函数里）
+						设置过收藏，就从本地数据库拿值渲染
+		2、在页面里切换收藏，就把值存到本地数据库
+		
+	
+		
+				
+												

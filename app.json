@@ -1,15 +1,16 @@
 {
   "pages": [
+    "dobuan-movie/category/category",
+    "pages/welcome/welcome",
     "pages/article/article",
     "pages/article-content/article-content",
-    "pages/welcome/welcome",
     "pages/index/index",
     "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#F0FFF0",
+    "navigationBarTitleText": "MyMini",
     "navigationBarTextStyle": "black"
   }
 }

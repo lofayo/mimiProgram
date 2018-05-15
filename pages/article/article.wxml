@@ -3,7 +3,7 @@
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
   <block wx:for="{{articleLists}}" wx:key="postId">
     <swiper-item>
-      <image src="{{item.headImgSrc}}" class="slide-image"/>
+      <image bindtap="toArticleContent" data-article_id='{{item.postId}}' src="{{item.headImgSrc}}" class="slide-image"/>
     </swiper-item>
   </block>
 </swiper>

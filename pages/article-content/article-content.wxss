@@ -2,12 +2,12 @@
 
 .header {
   width: 750rpx;
-  height: 500rpx;
+  height: 400rpx;
   position: relative;
 }
 .header_img {
   width: 100%;
-  height: 500rpx;
+  height: 400rpx;
 }
 .music_icon {
   width: 100rpx;

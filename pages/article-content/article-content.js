@@ -18,9 +18,9 @@ Page({
         author: "白杨",
         dateTime: "1天前",
         detail: "一 “李安是一位绝不会重复自己的导演，本片将极富原创性”李安众所瞩目的新片《比利林恩漫长的中场休息》，正式更名《半场无战事》。预告片首次曝光后，被视作是明年奥斯卡种子选手。该片根据同名畅销书改编。原著小说荣获美国国家图书奖。也被BBC评为21世纪最伟大的12本英文小说之一。影片讲述一位19岁德州男孩的比利·林恩入伍参加伊战，在一次交火中他大难不死，意外与战友成为大众的关注焦点，并被塑造成英雄。之后他们返回国内，在橄榄球赛中场休息时授勋。这名战争英雄却面临前所未有的心灵煎熬……李安为什么选中这部电影来拍？因为李安想要挑战前所未有的技术难题：以120帧每秒的速度、4K、3D技术全面结合，来掀起一场电影视觉革命。什么意思？所谓“电影是24格每秒的谎言”，其中的24格，就是帧数。",
-        postId: 1,
+        postId: 0,
         music: {
-          url: 'http://fs.w.kugou.com/201805150725/cfa75f071be341416348d654028e2965/G133/M06/1F/05/ZZQEAFq-OJeAZlHTAEiUY5VyLcI653.mp3',  //音乐链接
+          url: 'http://fs.w.kugou.com/201805151529/c991b32cc4bc62b0eea7a134ce4d5d4a/G083/M09/02/01/kw0DAFgvbEOAOX9-ADVWS9Y4oF4817.mp3',  //音乐链接
           coverImg: "http://y.gtimg.cn/music/photo_new/T002R300x300M000004dRTZ70jv2FA.jpg?max_age=2592000", //专辑封面URL
           title: "无条件 - 陈奕迅"  //音乐标题
         }
@@ -37,7 +37,7 @@ Page({
         author: "Stefan",
         dateTime: "24小时前",
         detail: "菊黄蟹正肥，品尝秋之味。徐志摩把“看初花的荻芦”和“到楼外楼吃蟹”并列为秋天来杭州不能错过的风雅之事；用林妹妹的话讲是“螯封嫩玉双双满，壳凸红脂块块香”；在《世说新语》里，晋毕卓更是感叹“右手持酒杯，左手持蟹螯，拍浮酒船中，便足了一生矣。”漫漫人生长路，美食与爱岂可辜负？于是作为一个吃货，突然也很想回味一下属于我的味蕾记忆。记忆中的秋蟹，是家人的味道，弥漫着浓浓的亲情。\n\n是谁来自山川湖海，却囿于昼夜，厨房与爱？ 是母亲，深思熟虑，聪明耐心。吃蟹前，总会拿出几件工具，煞有介事而乐此不疲。告诉我们螃蟹至寒，需要佐以姜茶以祛寒，在配备的米醋小碟里，亦添入姜丝与紫苏，前者驱寒后者增香。泡好菊花茶，岁月静好，我们静等。",
-        postId: 0,
+        postId: 1,
         music: {
           url: 'http://mp3.qqmusic.cc/yq/102636799.mp3',  //音乐链接
           coverImg: "http://y.gtimg.cn/music/photo_new/T002R300x300M000003y8dsH2wBHlo.jpg?max_age=2592000", //专辑封面URL
@@ -122,19 +122,18 @@ Page({
       }
     ],
     currentArticle: {},
-    innerAudioContext:null,
-    isPlayMusic: false
+    // innerAudioContext: null,
+    // 共用一个播放器，所以只需要一个控制开关
+    isPlayMusic: false,
+    // 当前页面也要保存一份是否收藏的结果，以渲染当前页面的收藏图片
+    isCurrentCollected: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 引用整个APP创建的 内部audio上下文，并赋给当前页面的数据
-    var app = getApp()
-    this.setData({
-      innerAudioContext:app.globalData.innerAudioContext
-    })
+    var _this = this
 
     // 获取传递到当前页面的查询参数，并取到对应的文章项
     var articleID = options.articleID;
@@ -142,10 +141,51 @@ Page({
       currentArticle: this.data.articleLists[articleID]
     })
 
-    // 页面加载完成，就创建内部audio上下文（因为需要共用一个audio上下文，所以引用全局的）
-    // this.data.innerAudioContext = wx.createInnerAudioContext()
-    // 不能在这个地方设置url，而是在点击下一首歌时，重置url
-    // this.data.innerAudioContext.src = this.data.currentArticle.music.url
+    // 引用整个APP创建的 内部audio上下文，并赋给当前页面的数据
+    var app = getApp()
+
+    // 这个地方是个bug
+    // console.log(app.globalData.innerAudioContext)
+    // console.log(app.globalData.innerAudioContext.paused)
+    // 判断是否当前页面的音乐在播放
+    function isCurrentMusicPlay() {
+      return app.globalData.innerAudioContext.src === _this.data.currentArticle.music.url
+    }
+    if (app.globalData.musicPlayerPlay && isCurrentMusicPlay()) {
+      this.setData({
+        isPlayMusic: true
+      })
+    }
+    // 音乐播放结束，切换为原始状态
+    app.globalData.innerAudioContext.onEnded(()=>{
+      _this.setData({
+        isPlayMusic:false
+      })
+    })
+
+    // 页面加载了，或初始化storage，或获取storage渲染初始状态
+    var key = 'collection_article_' + this.data.currentArticle.postId
+    wx.getStorage({
+      key: 'collectRecord',
+      success: function (res) {
+        console.log(res.data)
+        var collectRecord = res.data
+        // 2、如果当前页面被设置过收藏，则渲染收藏结果
+        if (collectRecord[key] !== undefined) {
+          console.log(collectRecord[key])
+          _this.setData({
+            isCurrentCollected: collectRecord[key]
+          })
+        }
+      },
+      // 1、失败了意味没有此本地记录，就初始化
+      fail: function () {
+        wx.setStorage({
+          key: 'collectRecord',
+          data: {}
+        })
+      }
+    })
   },
 
   /**
@@ -206,17 +246,44 @@ Page({
    */
   playMusic: function () {
     // 而是在点击下一首歌时，重置url
-    this.data.innerAudioContext.src = this.data.currentArticle.music.url
+    // 这个地方要区分要区分当前页面的播放暂停，还是新进入页面的开始播放
+    // 新进入页面才需要设置url
+    var app = getApp()
+    if (app.globalData.innerAudioContext.src != this.data.currentArticle.music.url) {
+      app.globalData.innerAudioContext.src = this.data.currentArticle.music.url
+    }
+    if (!this.data.isPlayMusic) {
+      app.globalData.innerAudioContext.play()
+      app.globalData.musicPlayerPlay = true
+    } else {
+      app.globalData.innerAudioContext.pause()
+      app.globalData.musicPlayerPlay = false
+    }
     this.setData({
       isPlayMusic: !this.data.isPlayMusic
     })
-    if (this.data.isPlayMusic) {
-      this.data.innerAudioContext.play()
-    } else {
-      this.data.innerAudioContext.pause()
-    }
-    this.data.innerAudioContext.onPlay(() => {
-      console.log('开始播放')
+  },
+
+  /**
+   * 点击收藏，切换收藏与取消，并修改storage中对应那条数据
+   */
+  collect: function () {
+    var key = 'collection_article_' + this.data.currentArticle.postId
+
+    this.setData({
+      isCurrentCollected: !this.data.isCurrentCollected
+    })
+    var _this = this
+    wx.getStorage({
+      key: 'collectRecord',
+      success: function (res) {
+        var collectRecord = res.data
+        collectRecord[key] = _this.data.isCurrentCollected
+        wx.setStorage({
+          key: 'collectRecord',
+          data: collectRecord
+        })
+      }
     })
   }
 })

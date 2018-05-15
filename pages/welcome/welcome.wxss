@@ -1,11 +1,11 @@
 /* pages/welcome/welcome.wxss */
 .welcome_box {
   height: 100%;
-  background-color: #B2DFEE; 
+  background-color: #F0FFFF; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 .me_logo {
   width: 200rpx;

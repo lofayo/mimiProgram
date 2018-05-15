@@ -1,6 +1,8 @@
 //app.js
 App({
   onLaunch: function () {
+    //
+
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -37,6 +39,7 @@ App({
   },
   globalData: {
     // 对于整个APP注册一个音乐播放器
-    innerAudioContext: wx.createInnerAudioContext()
+    innerAudioContext: wx.createInnerAudioContext(),
+    musicPlayerPlay: false
   }
 })

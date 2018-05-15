@@ -1,6 +1,6 @@
 <!--pages/article-content/article-content.wxml-->
 <view class='header'>
-  <image class='header_img' src='{{currentArticle.headImgSrc}}'></image>
+  <image class='header_img' src='{{isPlayMusic ? currentArticle.music.coverImg : currentArticle.headImgSrc}}'></image>
   <image bindtap='playMusic' class='music_icon' src="{{isPlayMusic?'/images/music/music-stop.png':'/images/music/music-start.png'}}"></image>
 </view>
 <view class='article_content_info'>
@@ -12,7 +12,7 @@
   <text class='title'>{{currentArticle.title}}</text>
   <view class='col_share'>
     <image src='/images/icon/share.png'></image>
-    <image style='margin-right:36rpx;' src='/images/icon/collection-anti.png'></image>
+    <image bindtap='collect' style='margin-right:36rpx;' src="{{!isCurrentCollected ? '/images/icon/collection-anti.png' : '/images/icon/collection.png'}}"></image>
     <text class='line'></text>
   </view>
   <text class='article_content_text'>{{currentArticle.detail}}</text>
