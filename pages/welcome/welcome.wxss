@@ -1,0 +1,14 @@
+/* pages/welcome/welcome.wxss */
+.welcome_box {
+  height: 100%;
+  background-color: #B2DFEE; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.me_logo {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
