@@ -1,2 +1,6 @@
 <!--dobuan-movie/category/category.wxml-->
-<web-view src="https://mp.weixin.qq.com/"></web-view>
+<!-- <web-view src="http://www.pospi.com/html/home-page.html"></web-view> -->
+<import src="/templates/template.wxml" />
+<block wx:for='{{moviesCategory}}'>
+  <template is="movie_category" data="{{...item}}" />
+</block>

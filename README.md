@@ -100,6 +100,8 @@
 		2、在页面里切换收藏，就把值存到本地数据库
 		
 	
-		
+	15、
+		引入模板.wxml文件：<import src="/templates/template.wxml" />
+		引入模板.wxss文件：@import "/templates/template.wxss";
 				
 												

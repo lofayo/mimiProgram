@@ -1,4 +1,4 @@
-/* dobuan-movie/category/category.wxss */
+/* dobuan-movie/movie-lists/movie-lists.wxss */
 @import "/templates/template.wxss";
 
 .movie_container {
@@ -15,5 +15,3 @@
 .more {
   color: blue;
 }
-
-

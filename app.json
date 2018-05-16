@@ -5,7 +5,9 @@
     "pages/article/article",
     "pages/article-content/article-content",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "dobuan-movie/movie-lists/movie-lists",
+    "templates/template"
   ],
   "window": {
     "backgroundTextStyle": "light",

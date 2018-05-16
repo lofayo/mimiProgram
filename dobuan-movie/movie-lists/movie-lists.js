@@ -1,11 +1,11 @@
-// dobuan-movie/category/category.js
+// dobuan-movie/movie-lists/movie-lists.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    moviesCategory:{}
+    movies: []
   },
 
   /**
@@ -17,8 +17,8 @@ Page({
     function convertStars() {
       var movies = _this.data.movies
       for (let i = 0; i < movies.length; i++) {
-        let star = Math.round(movies[i].rating.stars/10)
-        let init = [0,0,0,0,0]
+        let star = Math.round(movies[i].rating.stars / 10)
+        let init = [0, 0, 0, 0, 0]
         for (let j = 0; j < star; j++) {
           init[j] = 1;
         }
@@ -26,16 +26,18 @@ Page({
       }
     }
     wx.request({
-      url: 'http://t.yushu.im/v2/movie/in_theaters?start=0&count=3', 
+      url: 'http://t.yushu.im/v2/movie/in_theaters',
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
         console.log(res.data)
         var movies = res.data.subjects
-        _this.data.moviesCategory['hot'] = res.data
-        _this.data.moviesCategory['hot']['category'] = '正在热映'
-        console.log(_this.data.moviesCategory)
+        _this.setData({
+          movies: movies
+        }, () => {
+          convertStars();
+        })
       }
     })
   },
@@ -87,14 +89,5 @@ Page({
    */
   onShareAppMessage: function () {
   
-  },
-
-  /**
-   * 进入电影子页面
-   */
-  toMovieLists: function () {
-    wx.navigateTo({
-      url: "/dobuan-movie/movie-lists/movie-lists",
-    })
   }
 })
