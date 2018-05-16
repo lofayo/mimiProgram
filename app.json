@@ -1,5 +1,6 @@
 {
   "pages": [
+    "test/test",
     "dobuan-movie/category/category",
     "pages/welcome/welcome",
     "pages/article/article",
