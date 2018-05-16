@@ -245,6 +245,8 @@ Page({
    * 播放音乐的 内部audio上下文
    */
   playMusic: function () {
+   
+    var _this=this
     // 而是在点击下一首歌时，重置url
     // 这个地方要区分要区分当前页面的播放暂停，还是新进入页面的开始播放
     // 新进入页面才需要设置url
@@ -259,9 +261,12 @@ Page({
       app.globalData.innerAudioContext.pause()
       app.globalData.musicPlayerPlay = false
     }
-    this.setData({
-      isPlayMusic: !this.data.isPlayMusic
+    app.globalData.innerAudioContext.onPlay(()=>{
+      _this.setData({
+        isPlayMusic: !this.data.isPlayMusic
+      })
     })
+    
   },
 
   /**

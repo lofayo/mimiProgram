@@ -13,12 +13,14 @@ Page({
    */
   onLoad: function (options) {
     wx.request({
-      url: 'https://api.douban.com/v2/movie/top250', 
-      header: {
-        'content-type': 'application/json' // 默认值
+      url: 'http://t.yushu.im/v2/movie/in_theaters?start=0&count=3', 
+      data:{},
+      method:'GET',
+      header:{
+        "Content-Type":"application/xml"
       },
       success: function (res) {
-        console.log(res.data)
+        console.log(res)
       }
     })
   },

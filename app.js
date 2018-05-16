@@ -1,7 +1,21 @@
 //app.js
 App({
   onLaunch: function () {
-    //
+    //如果没网，给出检查网络提示
+    wx.getNetworkType({
+      success: function (res) {
+        // 返回网络类型, 有效值：
+        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+        var networkType = res.networkType
+        if (networkType == 'none') {
+          wx.showToast({
+            title: '检查网络',
+            icon: 'fail',
+            duration: 2000
+          })
+        }
+      }
+    })
 
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
