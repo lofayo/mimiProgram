@@ -103,5 +103,34 @@
 	15、
 		引入模板.wxml文件：<import src="/templates/template.wxml" />
 		引入模板.wxss文件：@import "/templates/template.wxss";
+		引入公共js函数或方法：
+							//common.js
+							module.exports = {
+							  API:API,
+							  requestAPI: requestAPI
+							}
+							
+							//index.js
+							const common = require('../common.js')			
+							
+		
 				
-												
+	16、函数嵌套返回与对象方法的返回
+		
+			（1）函数嵌套返回
+				function fn1(){
+					function fn2(){
+						return 2;
+					}
+					return fn2();
+				}
+				fn1();	//2
+			（2）wx.request返回一个requestTask，可以中断请求，所以不可能返回success函数的函数的返回值
+				function requestAPI(url) {
+				  return wx.request({
+					url: url,
+					success:function(res){
+					  return res.data
+					}
+				  })
+				}

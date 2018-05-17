@@ -1,4 +1,21 @@
 /* templates/template.wxss */
+.movie_container {
+  padding: 24rpx;
+  font-size: 24rpx;
+  overflow: hidden;
+  background-color: #fff;
+  margin-bottom: 24rpx;
+}
+
+.item_title {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx 0;
+}
+
+.more {
+  color: blue;
+}
 .movie_surface {
   width: 100%;
   height: 320rpx;

@@ -17,5 +17,13 @@
 
 <!--电影分类列表的电影分类项模板  -->
 <template name="movie_category">
-<text>111</text>
+   <view class='movie_container'>
+    <view class='item_title'>
+      <text class='category_title'>{{category}}</text>
+      <text bindtap='toMovieLists' data-category_id='{{index}}' class='more'>更多 ></text>
+    </view>
+    <block wx:for='{{subjects}}' wx:for-item='movie_item' wx:key='index'>
+      <template is="movie_item" data="{{...movie_item}}" />
+    </block>
+  </view> 
 </template>

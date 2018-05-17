@@ -168,7 +168,6 @@ Page({
     wx.getStorage({
       key: 'collectRecord',
       success: function (res) {
-        console.log(res.data)
         var collectRecord = res.data
         // 2、如果当前页面被设置过收藏，则渲染收藏结果
         if (collectRecord[key] !== undefined) {

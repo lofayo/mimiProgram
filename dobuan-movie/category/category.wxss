@@ -1,19 +1,8 @@
 /* dobuan-movie/category/category.wxss */
 @import "/templates/template.wxss";
 
-.movie_container {
-  padding: 24rpx;
-  font-size: 24rpx;
-}
-
-.item_title {
-  display: flex;
-  justify-content: space-between;
-  padding: 24rpx 0;
-}
-
-.more {
-  color: blue;
+page {
+  background-color: #ddd;
 }
 
 

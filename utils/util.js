@@ -14,6 +14,9 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+// 定义API相关
+const APIDomain = ''
+
 module.exports = {
   formatTime: formatTime
 }

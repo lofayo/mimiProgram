@@ -1,4 +1,5 @@
 // dobuan-movie/movie-lists/movie-lists.js
+const common = require('../common.js')
 Page({
 
   /**
@@ -13,6 +14,7 @@ Page({
    */
   onLoad: function (options) {
     var _this = this
+    let category_id = options.category_id
     // 提取movies数据的stars字段，转成能直接渲染的star
     function convertStars() {
       var movies = _this.data.movies
@@ -25,18 +27,16 @@ Page({
         movies[i]['convertStars'] = init.join('')
       }
     }
+    var commonAPI = common.API
     wx.request({
-      url: 'http://t.yushu.im/v2/movie/in_theaters',
+      url: commonAPI[category_id].url,
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         var movies = res.data.subjects
         _this.setData({
           movies: movies
-        }, () => {
-          convertStars();
         })
       }
     })
