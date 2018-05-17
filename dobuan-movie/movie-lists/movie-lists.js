@@ -1,12 +1,31 @@
 // dobuan-movie/movie-lists/movie-lists.js
 const common = require('../common.js')
+const addStarArray = common.addStarArray
+
+// 全局变量记录下拉刷新时数据初始值
+let requestStart = 0
+
+// 记录当前页面的分类id
+let category_id = 0
+
+// 当前页面请求数据的URL
+let url = ''
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    movies: []
+    movies: [],
+    star: [
+      [0, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [1, 1, 1, 0, 0],
+      [1, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1]
+    ]
   },
 
   /**
@@ -14,29 +33,24 @@ Page({
    */
   onLoad: function (options) {
     var _this = this
-    let category_id = options.category_id
+    category_id = options.category_id
+    let category = options.category
+    wx.setNavigationBarTitle({
+      title: category
+    })
     // 提取movies数据的stars字段，转成能直接渲染的star
-    function convertStars() {
-      var movies = _this.data.movies
-      for (let i = 0; i < movies.length; i++) {
-        let star = Math.round(movies[i].rating.stars / 10)
-        let init = [0, 0, 0, 0, 0]
-        for (let j = 0; j < star; j++) {
-          init[j] = 1;
-        }
-        movies[i]['convertStars'] = init.join('')
-      }
-    }
-    var commonAPI = common.API
+
+    url = common.API[category_id].url
     wx.request({
-      url: commonAPI[category_id].url,
+      url: url,
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        var movies = res.data.subjects
+        var subjects = res.data.subjects
+        addStarArray(subjects)
         _this.setData({
-          movies: movies
+          movies: subjects
         })
       }
     })
@@ -71,17 +85,45 @@ Page({
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 页面相关事件处理函数--监听用户下拉动作（下拉刷新）
    */
   onPullDownRefresh: function () {
-  
+    let _this = this
+    let initData = this.data.movies
+    requestStart += 20
+    wx.request({
+      url: url + '?start=' + requestStart,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.count === 0) {
+          wx.showToast({
+            title: '已全部更新',
+          })
+        } else {
+          wx.showLoading({
+            title: 'loading',
+            mask: true
+          })
+          let subjects = res.data.subjects
+          addStarArray(subjects)
+          _this.setData({
+            movies: [...subjects,...initData]
+          },()=>{
+            wx.hideLoading()
+            wx.stopPullDownRefresh()
+          })
+        }
+      }
+    })
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * 页面上拉触底事件的处理函数（上拉加载）
    */
   onReachBottom: function () {
-  
+    
   },
 
   /**

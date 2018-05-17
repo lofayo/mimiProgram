@@ -3,5 +3,5 @@
  <import src="/templates/template.wxml" /> 
 <block wx:for='{{moviesCategory}}' wx:key='index'>
 <!--将循环的每一项渲染模板，是将每项json展开传入  -->
-    <template is="movie_category" data="{{index,...item}}" />  
+    <template is="movie_category" data="{{...item}}" />  
 </block>

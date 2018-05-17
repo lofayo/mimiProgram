@@ -31,9 +31,25 @@ function requestAPI(url,callback) {
   })
 }
 
+const star = [
+  [0, 0, 0, 0, 0],
+  [1, 0, 0, 0, 0],
+  [1, 1, 0, 0, 0],
+  [1, 1, 1, 0, 0],
+  [1, 1, 1, 1, 0],
+  [1, 1, 1, 1, 1]
+]
+
+function addStarArray(obj) {
+  for (let i = 0; i < obj.length; i++) {
+    let stars = obj[i].rating.stars
+    obj[i].rating['star'] = star[Math.round(stars / 10)]
+  }
+}
 
 
 module.exports = {
   API:API,
-  requestAPI: requestAPI
+  requestAPI: requestAPI,
+  addStarArray: addStarArray
 }

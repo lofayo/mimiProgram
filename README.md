@@ -134,3 +134,31 @@
 					}
 				  })
 				}
+	17、写过的还不太可行的代码
+	    // function fn(dataKey) {
+    //   return function(json){
+    //     let temp = []
+    //     temp.push(json)
+    //     _this.setData({
+    //       '${dataKey}': temp
+    //     }, () => {
+    //       console.log(_this.data.dataKey)
+    //     })  
+    //   }
+    // }
+
+
+    // function handleData(json,dataKey){
+    //   tempArr.push(json)
+    //   _this.setData({
+    //     moviesCategory: tempArr
+    //   })
+    // }
+    // 测试封装wx.request的函数
+    // let res = requestAPI('http://t.yushu.im/v2/movie/in_theaters', handleData)
+    // return;
+	
+	    for (let i = 0; i < commonAPI.length; i++) {
+      // let url = commonAPI[i].url + '?start=0&count=3';
+      // requestAPI(url, handleData)
+	  }
