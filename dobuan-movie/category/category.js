@@ -32,7 +32,9 @@ Page({
       wx.request({
         url: commonAPI[i].url + '?start=0&count=3',
         success: function (res) {
+          console.log(res)
           let resData = res.data
+
           resData['category'] = commonAPI[i].category
           resData['category_id'] = i
           let subjects = resData.subjects
