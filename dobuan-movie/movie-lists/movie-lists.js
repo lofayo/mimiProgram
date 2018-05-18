@@ -131,5 +131,16 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  /**
+   * 进入电影详情页
+   */
+  toMovieSubject: function (e) {
+    // console.log(e)
+    let subject_id = e.currentTarget.dataset.subject_id
+    wx.navigateTo({
+      url: "/dobuan-movie/movie-subject/movie-subject?subject_id=" + subject_id,
+    })
   }
 })

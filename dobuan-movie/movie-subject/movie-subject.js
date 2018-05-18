@@ -1,37 +1,29 @@
-// test/test.js
+// dobuan-movie/movie-subject/movie-subject.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    info:[
-      {
-        name:'lofyao',
-        sex:'female'
-      },
-      {
-        name:'lofy',
-        sex:'male'
-      }
-    ],
-    name:['lofayo','lofy'],
-    sex:['female','male']
+    subject:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  wx.request({
-    url: 'https://douban.uieee.com/v2/movie/in_theaters',
-    header: {
-      'content-type': 'json' // 默认值
-    },
-    success:function(res){
-      console.log(res.data)
-    }
-  })
+    let _this = this
+    let subject_id = options.subject_id
+    let url = 'http://t.yushu.im/v2/movie/subject/' + subject_id
+    // let url = 'http://t.yushu.im/v2/movie/subject/326'
+    wx.request({
+      url: url,
+      success:function(res){
+        _this.setData({
+          subject:res.data
+        })
+      }
+    })
   },
 
   /**

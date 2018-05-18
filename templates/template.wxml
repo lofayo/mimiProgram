@@ -1,7 +1,7 @@
 <!--templates/template.wxml-->
 <!--电影列表中的电影项模板  -->
 <template name="movie_item">
-  <view class='movie_item'>
+  <view class='movie_item' bindtap='toMovieSubject' data-subject_id='{{id}}'>
     <image src='{{images.large}}' class='movie_surface'></image>
     <text class='movie_title'>{{title}}</text>
     <view class='comment'>

@@ -2,6 +2,15 @@ var DOMAIN = 'http://t.yushu.im/'
 
 var API_hot = DOMAIN + 'v2/movie/in_theaters'
 
+let movie_subject = 'http://t.yushu.im/v2/movie/subject/:id'
+
+let api1 = 'http://t.yushu.im/v2/movie/subject/326'
+let api2 = 'http://api.douban.com/v2/movie/subject/1292052'
+
+let api3 = 'http://t.yushu.im/v2/movie/top250'
+let api4 = 'http://api.douban.com/v2/movie/top250'
+
+
 const API = [{
     category: '正在热映',
     url: 'http://t.yushu.im/v2/movie/in_theaters'

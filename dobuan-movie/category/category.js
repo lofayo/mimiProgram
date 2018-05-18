@@ -37,7 +37,6 @@ Page({
           resData['category_id'] = i
           let subjects = resData.subjects
           addStarArray(subjects)
-          console.log(subjects)
           tempArr.push(resData)
           _this.setData({
             moviesCategory: tempArr
@@ -132,6 +131,18 @@ Page({
     let category = e.currentTarget.dataset.category
     wx.navigateTo({
       url: "/dobuan-movie/movie-lists/movie-lists?category_id=" + category_id + '&category=' + category,
+    })
+  }
+  ,
+
+  /**
+   * 进入电影详情页
+   */
+  toMovieSubject: function (e) {
+    // console.log(e)
+    let subject_id = e.currentTarget.dataset.subject_id
+    wx.navigateTo({
+      url: "/dobuan-movie/movie-subject/movie-subject?subject_id=" + subject_id,
     })
   }
 })
